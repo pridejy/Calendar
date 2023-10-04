@@ -1,0 +1,110 @@
+* {
+    box-sizing:border-box;
+}
+ul {
+    list-style-type: none;
+}
+body {
+    font-family: 'Croissant One', cursive;
+    font-family: 'Dela Gothic One', cursive;
+    font-family: 'Eczar', serif;
+    font-family: 'Fjalla One', sans-serif;
+    font-family: 'Lobster', cursive;
+    font-family: 'Martian Mono', monospace;
+    font-family: 'Roboto Slab', serif;
+    font-family: 'Titillium Web', sans-serif;
+}
+#calendar{
+    margin:0 auto;
+}
+table{
+    margin:0 auto;
+    width:40%;
+    border-collapse: collapse;
+}
+
+.month {
+    width: 40%;
+    margin:0 auto;
+    padding:20px;
+}
+.month ul {
+    margin: 0;
+    padding: 0;
+    top:0;
+}
+
+.month ul li {
+    color: black;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    top:5px;
+}
+
+.month .prev a {
+    float: left;
+    padding-top:0px;
+    font-size:2em;
+}
+
+.month .next a {
+    float: right;
+    font-size:2em;
+    padding-top: 0px;
+}
+.weekdays {
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    border-bottom:1px solid black;
+}
+.weekdays td {
+    width: 10%;
+    color: black;
+    text-align: center;
+}
+
+.days {
+    padding: 10px 0;
+    margin:10px;
+    position: relative;
+    max-width: 30px;
+    height:80px;
+}
+
+.days td {
+    background-color: none;
+    max-width: 10px;
+    text-align: center;
+    margin-bottom: 5px;
+    font-size:14px;
+    color: black;
+    cursor: pointer;
+}
+
+.days .active {
+    color: white;
+    background-color: #cf4e17;
+    border-radius: 50%;
+    text-align: center;
+}
+
+tr td:nth-child(1){
+    color:red;
+}
+tr td:nth-last-child(1){
+    color:blue;
+}
+a{
+    text-decoration: none;
+    color:white;
+}
+.prev a:hover,
+.next a:hover {
+    color: #f64747;
+}
+.days td:hover{
+    background-color: #e6e6e6;
+    border-radius: 50%;
+}
