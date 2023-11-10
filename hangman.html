@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Croissant+One&family=Dela+Gothic+One&family=Eczar&family=Fjalla+One&family=Lobster&family=Martian+Mono:wght@100;600&family=Roboto+Slab:wght@200&family=Single+Day&family=Titillium+Web:wght@300&family=Young+Serif&display=swap" rel="stylesheet">
+    <title>Hangman Game</title>
+    <style>
+        body {
+            font-family: 'Croissant One', cursive;
+            font-family: 'Dela Gothic One', cursive;
+            font-family: 'Eczar', serif;
+            font-family: 'Fjalla One', sans-serif;
+            font-family: 'Lobster', cursive;
+            font-family: 'Martian Mono', monospace;
+            font-family: 'Roboto Slab', serif;
+            font-family: 'Single Day', cursive;
+            font-family: 'Titillium Web', sans-serif;
+            font-family: 'Young Serif', serif;
+            background-color: #f9f9f9;
+            text-align: center;
+            margin: 0 auto;
+            padding: 0;
+            width: 600px;
+            height:100%;
+        }
+
+        h1 {
+            font-size:3.5em;
+            color: #333;
+        }
+
+        p {
+            color: #666;
+        }
+        .currentWord{
+            font-size:2.5em;
+        }
+        #hangman {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        button {
+            font-family: 'Mansalva', cursive;
+            background-color: #4caf50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 5px 5px;
+            cursor: pointer;
+            box-shadow: 5px 5px 5px #888;
+            border-radius: 5px;
+        }
+        #alphabetButtons {
+            margin-top: 20px;
+        }
+        #alphabetButtons > button{
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <!-- 난이도 선택 화면 -->
+    <div id="difficultySelection">
+        <h1>Hangman game</h1>
+        <h2>Select Difficulty</h2>
+        <button onclick="startGame('easy', 6)">Easy</button>
+        <button onclick="startGame('medium', 10)">Medium</button>
+        <button onclick="startGame('hard', 15)">Hard</button>
+    </div>
+
+    <!-- 게임 화면 -->
+    <div id="gameScreen" style="display: none;">
+        <h1>Hangman game</h1>
+        <p>Life: <span id="attemptsLeft" style="color: rgb(128, 0, 0)">★★★★★★</span></p>
+        <p>Guessed Letters: <span id="guessedLetters"></span></p>
+        <p>Current Word: <span id="wordDisplay" class="currentWord"></span></p>
+        <div id="alphabetButtons"></div>
+        <button id="backToDifficulty" onclick="returnToDifficultySelection()" style="display: none;">Back to Difficulty</button>
+    </div>
+        
+    <script>
+        const wordLists = {
+            easy: {
+                words: ["java", "json", "html","span","body", "head", "link", "href", "font", "size", "meta"],
+                maxAttempts: 6
+            },
+            medium: {
+                words: ["style", "margin","cursor","margin", "border", "radius", "align", "button", "charset"],
+                maxAttempts: 10
+            },
+            hard: {
+                words: ["tabletennis", "pingpong", "automatic","determine","disappear","chemiluminescence"],
+                maxAttempts: 15
+            }
+        };
+
+        let selectedWord = "";
+        let guessedLetters = [];
+        let attemptsLeft = 6;  
+        let currentLevel = "";
+
+        // 난이도 선택 함수
+        function startGame(level) {
+            currentLevel = level;
+            attemptsLeft = wordLists[level].maxAttempts; // 난이도에 따른 최대 시도 횟수 설정
+            document.getElementById("difficultySelection").style.display = "none";
+            document.getElementById("gameScreen").style.display = "block";
+            document.getElementById("backToDifficulty").style.display = "inline";
+            initializeGame();
+        }
+
+        // "Back to Difficulty" 버튼 클릭 시 호출되는 함수
+        function returnToDifficultySelection() {
+            document.getElementById("difficultySelection").style.display = "block";
+            document.getElementById("gameScreen").style.display = "none";
+            document.getElementById("backToDifficulty").style.display = "none";
+        }
+
+        // 시작
+        function initializeGame() {
+            const wordList = wordLists[currentLevel].words;
+            selectedWord = wordList[Math.floor(Math.random() * wordList.length)];
+            guessedLetters = [];
+            updateDisplay();
+            createAlphabetButtons();
+        }
+        // 알파벳 버튼 생성
+        function createAlphabetButtons() {
+            const alphabetButtonsDiv = document.getElementById("alphabetButtons");
+            alphabetButtonsDiv.innerHTML = '';
+            for (let i = 0; i < 26; i++) {
+                const letter = String.fromCharCode(65 + i); // A부터 Z까지 알파벳 생성
+                const button = document.createElement("button");
+                button.textContent = letter;
+                button.addEventListener("click", function() {
+                    guessLetter(letter.toLowerCase(), button); // 버튼 요소를 전달
+                });
+                alphabetButtonsDiv.appendChild(button);
+            }
+        }
+
+        // 알파벳 추측 함수
+        function guessLetter(letter, button) {
+            guessedLetters.push(letter);
+
+            // 선택한 버튼의 배경색, 선택 불가
+            button.style.backgroundColor = "gray";
+            button.disabled=true;
+
+            if (!selectedWord.includes(letter)) {
+                attemptsLeft--;
+            }else
+            {
+                button.style.backgroundColor="red";
+            }
+            updateDisplay();
+
+            if (attemptsLeft === 0) {
+                alert("게임오버 정답은 '" + selectedWord + "'입니다.");
+                returnToDifficultySelection();
+            } else if (isWordGuessed()) {
+                alert("정답을 맞추셨습니다.");
+                // 다음 난이도로 진행하거나, 최종 난이도까지 클리어 시 게임 종료 로직 추가
+                initializeGame();
+            }
+        }
+
+        // 정답을 모두 맞췄는지 확인하는 함수
+        function isWordGuessed() {
+            return selectedWord.split("").every(letter => guessedLetters.includes(letter));
+        }
+
+        // 화면 업데이트 함수
+        function updateDisplay() {
+            const attemptsLeftElement = document.getElementById("attemptsLeft");
+            const stars = "★".repeat(attemptsLeft); // 목숨 개수에 따라 별 모양 생성
+            attemptsLeftElement.textContent = stars;
+            attemptsLeftElement.style.color = "rgb(128, 0, 0)";
+            document.getElementById("guessedLetters").textContent = guessedLetters.join(", ");
+            const wordDisplay = selectedWord.split("").map(letter => guessedLetters.includes(letter) ? letter : "_").join(" ");
+            document.getElementById("wordDisplay").textContent = wordDisplay;
+        }
+
+        // 초기 게임 시작
+        initializeGame();
+    </script>
+</body>
+</html>

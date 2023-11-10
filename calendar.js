@@ -34,9 +34,9 @@ function showCalendar()
             if(i*7+j<calendar.theDayOfTheWeek || date > calendar.lastDay) table += "<td>&nbsp;</td>";
             else
             {
-              if(date == curDate && calendar.month == curMonth && calendar.year == curYear) table += "<td class = 'active'>";
-              else table +=`<td>`;
-              table += date++ + `</td>`;
+                if(date == curDate && calendar.month == curMonth && calendar.year == curYear)    table += "<td class = 'active'>";
+                else table +=`<td>`;
+                table += date++ + `</td>`;
             }
         }
         table += `</tr>`;

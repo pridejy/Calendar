@@ -1,0 +1,334 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+div {
+    display: block;
+}
+
+ul {
+    list-style-type: none;
+    margin-bottom:5px;
+}
+
+li {
+    float: left;
+}
+
+a {
+    text-decoration: none;
+}
+/*헤더*/
+header {
+    background-color: #333;
+    color:white;
+    padding:10px 0;
+    display:none;
+}
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items:  center;
+    padding: 0 20px;
+}
+nav ul{
+    list-style:none;
+    padding:0;
+}
+nav ul li{
+    display:inline;
+    margin-right:20px;
+}
+nav ul:last-child{
+    margin-right:0;
+}
+
+nav ul li a{
+    text-decoration: none;
+    color:white;
+    font-size:15px;
+}
+
+
+/*header 메인 이미지*/
+#main{
+    margin:0 auto;
+    padding-top:0;
+    display:none;
+}
+#movie-desc-image{
+    position:relative;
+}
+#movie-main{
+    width: 100%;
+    height: 550px;
+    object-fit: cover;
+    object-position: center top;
+    border: 5px solid #333;
+}
+#movie-desc-image {
+    width: 100%;
+    height: 550px;
+    margin-bottom: 50px;
+}
+/*movie-text*/
+#movie-text {
+    position: absolute;
+    top: 80%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    color: white;
+    padding: 60px;
+    font-size:20px;
+    
+    font-family: 'Croissant One', serif;
+    font-family: 'Dela Gothic One', sans-serif;
+    font-family: 'Eczar', serif;
+    font-family: 'Fjalla One', sans-serif;
+    font-family: 'Lobster', sans-serif;
+    font-family: 'Martian Mono', monospace;
+    font-family: 'Roboto Slab', serif;
+    font-family: 'Single Day', cursive;
+    font-family: 'Titillium Web', sans-serif;
+    font-family: 'Young Serif', serif;
+}
+
+#movie-text h1, #movie-text p {
+    margin: 0;
+}
+/*movie-age 나이*/
+#movie-age{
+    background-color: #ff9800; 
+    color: white; 
+    padding: 5px 5px;
+    border-radius: 5px;
+    display: inline-block; 
+    font-weight: bold;
+}
+
+/* movie-desc(영화 설명) */
+#movie-desc {
+    position: relative;
+    width: 100%;
+}
+
+
+/*movie-info 영화 정보*/
+#movie-relation-video{
+    margin: 0 auto;
+}
+#movie-poster {
+    margin:0 40px;
+    border-radius: 5%;
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+#movie-poster-desc{
+    width:1200px;
+    padding-left: 290px;
+    margin-left:30px;
+    margin-bottom:20px;
+}
+.tooltip{
+    float:left;
+    position:relative;
+    display:inline-block;
+}
+.tooltip .tooltip-text {
+    visibility: hidden;
+    width: 240px; /* 툴팁의 너비 조정 */
+    background-color: rgba(51, 51, 51, 0.8);
+    color: #fff;
+    text-align: left;
+    border-radius: 5px;
+    padding: 2px;
+    padding-left: 10px;
+    position: absolute;
+    z-index: 1;
+    bottom: 0; /* 툴팁의 위치 조정 */
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+
+
+/*더보기 버튼*/
+.hidden{
+    display:none;
+}
+#movie-details-Button{
+    font-size:20px;
+    color:#0c43b7;
+    cursor:pointer;
+}
+#movie-deatils:hover{
+    text-decoration: underline;
+}
+
+.castmates-images{
+    padding:0 25px;
+}
+
+#movie-info-castmates-list {
+    text-align: center;
+    margin-top: 5px;
+}
+
+#movie-info-castmates-list li {
+    margin-right: 55px; 
+    margin-left: 0;
+    list-style: none;
+}
+#movie-info-castmates-name {
+    list-style: none;
+}
+#movie-info-castmates-namelist{
+    display:block;
+}
+#castmates-jpg {
+    margin: 0 10px;
+}
+#movie-info-castmates-name{
+    margin:0 10px;
+}
+
+
+
+/* 텍스트 스타일 설정 */
+.movie-info-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+}
+
+#movie-runningTime,
+#movie-age {
+    display: inline-block;
+    margin-right: 5px;
+}
+/*등장인물*/
+#container{
+    display:none;
+    margin: 0 120px;
+}
+#castmates-jpg{
+    width:80px;
+    height:80px;
+    border-radius: 50%;
+    margin:0 6px;
+}
+/*movie-info(영화정보)*/
+#movie-poster{
+    float:left;
+}
+#movie-relation-video{
+    clear:both;
+}
+
+/*movie 무비 태그*/
+#movie-tag {
+    clear:both;
+    text-align: center; 
+    font-size: 18px; 
+    color: #333; 
+    margin-top: 10px;
+}
+
+
+/*영화사진*/
+#movie-photo-slide {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 40px;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+#movie-photo-slide img {
+    max-width: calc(25% - 10px); 
+    width: 250px;
+    height: 200px;
+    border: 2px solid #fff;
+    transition: transform 0.3s;
+}
+
+#movie-photo-slide img:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+
+#prev-images, #next-images {
+    width: 30px;
+    height: 30px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+
+#prev-images {
+    order: -1; 
+}
+
+/* 이미지를 감싸는 컨테이너에도 스타일 적용 */
+#movie-photo {
+    margin-left:40px;
+    margin-top: 60px;
+    flex-direction: column;
+    align-items: flex-start; 
+}
+
+#movie-photo img {
+    max-width: 100%; /* 이미지 너비 조정 */
+}
+#photo:hover{}
+
+/*movie-relation-video-list 영화 관련 동영상*/
+#movie-relation-video-list{
+    margin-left: 9vw;
+    display:none;
+}
+.video-link {
+    display: inline-block;
+    position: relative;
+    width: 300px;
+    transition: transform 0.3s;
+    margin: 10px;
+}
+
+.movie-realation-video-dump{
+    display:block;
+}
+.video-link, .movie-realation-video-dump:visited{
+    color:inherit;
+    text-decoration: none;
+}
+.movie-relation-video-list img{
+    transition: transform 0.3s;
+}
+.video-link:hover {
+    transform: scale(1.1);
+}

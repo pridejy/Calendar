@@ -1,0 +1,381 @@
+<!-- document.addEventListener("DOMContentLoaded", function () {
+    const calendar = {
+        year: 0,
+        month: 0,
+        date: 1,
+        thedayOfTheWeek: 0,
+        lastDay: 0,
+        numOfWeeks: 0,
+    };
+
+    function showCalendar() {
+        const currentMonth = document.querySelector(".select-wrapper");
+
+        function renderCalendar(year, month, selector) {
+        let date = 1;
+        const tbody = document.querySelector(selector).querySelector("tbody");
+        const weekDays = ["일", "월", "화", "수", "목", "금", "토"];
+        const tr = document.createElement("tr");
+
+        currentMonth.textContent = `${year}년 ${month + 1}월`;
+
+        for (let w = 0; w < 7; w++) {
+            const td = document.createElement("td");
+            td.textContent = weekDays[w];
+            tr.appendChild(td);
+        }
+        tbody.appendChild(tr);
+
+        const firstDayOfWeek = new Date(year, month, 1).getDay();
+        const lastDay = getLastOfTheMonth(year, month);
+
+        for (let i = 0; i < calendar.numOfWeeks; i++) {
+            const tr = document.createElement("tr");
+            for (let j = 0; j < 7; j++) {
+            if (i * 7 + j < firstDayOfWeek || date > lastDay) {
+                const td = document.createElement("td");
+                td.innerHTML = "&nbsp;";
+                tr.appendChild(td);
+            } else {
+                const td = document.createElement("td");
+                td.textContent = date;
+                tr.appendChild(td);
+                date++;
+            }
+            }
+            tbody.appendChild(tr);
+        }
+        }
+
+        function getLastOfTheMonth(year, month) {
+        const lastDay = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) {
+            lastDay[1] = 29;
+        }
+        return lastDay[month];
+        }
+
+        function getNumberOfWeeks(year, month) {
+        const firstDayOfWeek = new Date(year, month, 1).getDay();
+        return Math.ceil((firstDayOfWeek + getLastOfTheMonth(year, month)) / 7);
+        }
+
+        function getNextMonthCalendar() {
+        const nextMonthDate = new Date(calendar.year, calendar.month + 1, 1);
+        const nextMonth = document.querySelector(".select-next-wrapper");
+
+        nextMonth.textContent = `${nextMonthDate.getFullYear()}년 ${nextMonthDate.getMonth() + 1}월`;
+        const nextCalendar = {
+            year: nextMonthDate.getFullYear(),
+            month: nextMonthDate.getMonth(),
+        };
+        nextCalendar.numOfWeeks = getNumberOfWeeks(nextCalendar.year, nextCalendar.month);
+        renderCalendar(nextCalendar.year, nextCalendar.month, ".month2");
+        }
+
+        function getCalendar() {
+        if (calendar.year == 0) {
+            const date = new Date();
+            calendar.year = date.getFullYear();
+            calendar.month = date.getMonth();
+            calendar.date = date.getDate();
+        }
+        calendar.numOfWeeks = getNumberOfWeeks(calendar.year, calendar.month);
+        }
+
+        function nextMonth(num) {
+        calendar.month += num;
+        if (calendar.month == -1) {
+            calendar.month = 11;
+            calendar.year--;
+        } else if (calendar.month == 12) {
+            calendar.month = 0;
+            calendar.year++;
+        }
+        showCalendar();
+        }
+
+        getCalendar();
+        getNextMonthCalendar();
+        renderCalendar(calendar.year, calendar.month, ".month1");
+    }
+
+    showCalendar();
+}); -->
+
+
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="scripts/jquery-3.7.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="scripts/jquery.js"></script>
+    <script src="scripts/javascript.js"></script>
+    <script src="scripts/header.js"></script>
+    <title>main</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div id="mainWrap">
+            <div id="header" class style="height:75px">
+                <div class="header_ins">
+                    <!--로고이미지-->
+                    <div class="logo-img">
+                        <a href="main.html">
+                            <img src="images/png/logo.png" href="main.html">
+                        </a>
+                    </div>
+                    <div class="menu">
+                        <a href="view/login.html">Login</a>
+                        <a href="view/register.html">join</a>
+                    </div>
+                    <!--서브메뉴-->
+                    <div id="gnbMenu">
+                        <ul>
+                            <li>
+                                <a href="">About</a>
+                                <ul class="subMenu">
+                                    <li>
+                                        <a href="">호텔소개</a>
+                                        <a href="">오시는길</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="accomodation/luxury.html">Accomodation</a>
+                                <ul class="subMenu">
+                                    <li>
+                                        <a href="accomodation/luxury.html">호텔형</a>
+                                        <a href="">콘도형</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="">Reservation</a>
+                                <ul class="subMenu">
+                                    <li>
+                                        <a href="">객실/패키지 예약</a>
+                                        <a href="">예약</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="">News & Event</a>
+                                <ul class="subMenu">
+                                    <li>
+                                        <a href="">공지사항</a>
+                                        <a href="">이벤트 & 프로모션</a>
+                                        <a href="">자주하는 질문</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--오른쪽 메뉴-->
+                    <div class="rightMenu">
+                        <div class="timeImages"></div>
+                        <ul>
+                            <li>
+                                <a href="" class="select_len_show">KOR</a>
+                            </li>
+                            <li>
+                                <a href="" class="select_len">Eng</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div id="container">
+                <div class="content">
+                    <div class="bx-wrapper">
+                        <div class="bx-wrapper-slide">
+                            <div class="bxslide"></div>
+                        </div>
+                        <div class="bx-controls">
+                            <div class="bxslide-pager">
+                                <div class="bx-pager-item">
+                                    <div class="bx-circle-item"></div>
+                                    <div class="bx-circle-item"></div>
+                                    <div class="bx-circle-item"></div>
+                                    <div class="bx-circle-item"></div>
+                                    <div class="bx-circle-item"></div>
+                                    <div class="bx-circle-item"></div>
+                                    <div class="bx-circle-item"></div>
+                                    <div class="bx-circle-item"></div>
+                                    <div class="bx-circle-item"></div>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                    <!--보류(스크롤)-->
+                    <!-- <div class="mainIndicator">
+                        <ul>
+                            <li><a href="">Home</a></li>
+                            <li><a href="">Accomodation</a></li>
+                            <li><a href="">Dining & Bar</a></li>
+                            <li><a href="">Facility</a></li>
+                        </ul>
+                    </div> -->
+
+                    <!-- checkin-->
+                    <div class="checkInOut_wrap">
+                        <div class="checkInOut">
+                            <form id="check">
+                                <input type="hidden">
+                                <input type="hidden">
+                                <input type="hidden">
+                                <div id="searchAccomodation">
+                                    <div class="Accomodation"></div>
+                                    <!-- 날짜 -->
+                                    <div class="date">
+                                        <div class="checkIn">
+                                            <p>check In</p>
+                                            <input type="text" name="f_checkin" id="f_checkin" class="startDate" readonly>
+                                        </div>
+                                        <div class="checkOut">
+                                            <p>check out</p>
+                                            <input type="text" name="f_checkout" id="f_checkout" class="endDate" readonly>
+                                        </div>
+                                    </div>
+                                    <!-- 방 개수-->
+                                    <div class="Rooms">
+                                        <p>Rooms</p>
+                                        <select id="roomType">
+                                            <option value="roomNum">1</option>
+                                        </select>
+                                    </div>
+                                    <!--성인 인원-->
+                                    <div class="people">
+                                        <p>Adults</p>
+                                        <select id="numPeople">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                        </select>
+                                    </div>
+                                    <!--아이 인원-->
+                                    <div class="child">
+                                        <p>Child</p>
+                                        <select id="numPeople">
+                                            <option value="1">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                        </select>
+                                    </div>
+                                    <!-- 검색버튼 -->
+                                    <button id="searchButton" href="#">검색</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- Accomodation이미지-->
+                    <div id="accomodation">
+                        <div class="accomodation-wrap">
+                            <div class="title">
+                                <h1>Hotel Accomodation</h1>
+                            </div>
+                            <div id="rooms">
+                                <div class="rooms-view">
+                                    <ul class="rooms-slider">
+                                        <li>
+                                            <span class="img1">
+                                                <img src="images/jpg/luxury3.jpg" height="260">
+                                            </span>
+                                            <div class="info">
+                                                <h3>호텔 럭셔리</h3>
+                                                <span class="viewBtn">자세히 보기</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <span class="img2">
+                                                <img src="images/jpg/balcony1.jpg" height="260px">
+                                            </span>
+                                            <div class="info">
+                                                <h3>콘도 디럭스</h3>
+                                                <span class="viewBtn">자세히 보기</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 호텔 정보, 위치-->
+                    <div id="Area">
+                        <div class="mapIns">
+                            <div class="mapTitle-wrap">
+                                <h1 class="location-Title">Location</h1>
+                                <h2>
+                                    <p>강원도 강릉시 강동면 헌화로 950-39 ( 정동진리 50-10 )</p>
+                                    <p>Tel. 0414104141</p>
+                                    <p>E-mail. pridejy@Naver.com</p>
+                                </h2>
+                            </div>
+                            <div class="mapWrap">
+                                <div class="location">
+                                    <div>
+                                    <!-- 지도    -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 달력 -->
+    <div class="date-picker-wrapper" style="top:1022px; left:320px; user-select:none; display:none">
+        <div class="month-wrapper">
+            <input type="text" id="datepicker">
+            <!-- <table class="month1">
+                <thead>
+                    <tr class="caption">
+                        <th style="width:30px;">
+                            <span class="prev-month"><</span>
+                        </th>
+                        <th colspan="5" class="month-name">
+                            <div class="select-wrapper"></div>
+                        </th>
+                    </tr>
+                    <tr class="week-name" onclick="nextMonth(-1)"></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <div class="gap" style="visibility: hidden; height:250px; width:30px;"></div>
+            <table class="month2">
+                <thead>
+                    <tr class="caption">
+                        <th colspan="5" class="month-name">
+                            <div class="select-next-wrapper"></div>
+                        </th>
+                        <th style="width:30px;">
+                            <span class="next-month" >></span>
+                        </th>
+                    </tr>
+                    <tr class="week-name" onclick="nextMonth(1)"></tr>
+                </thead>
+                <tbody></tbody>
+            </table> -->
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
